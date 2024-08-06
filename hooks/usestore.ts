@@ -10,9 +10,6 @@ const useStore = <T, F>(
    const [data, setData] = useState<F>();
 
    useEffect(() => {
-      if (Object.entries(result ?? {}).length === 0) {
-         return;
-      }
       setData(result);
    }, [result]);
 
