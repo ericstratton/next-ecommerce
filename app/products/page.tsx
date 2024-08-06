@@ -120,18 +120,18 @@ export default function Component() {
                         <DropdownMenuSeparator />
                         <DropdownMenuCheckboxItem
                            checked={selectedFilters.category.includes(
-                              'Pastries'
+                              'pastries'
                            )}
                            onCheckedChange={() =>
-                              handleFilterChange('category', 'Pastries')
+                              handleFilterChange('category', 'pastries')
                            }
                         >
                            Pastries
                         </DropdownMenuCheckboxItem>
                         <DropdownMenuCheckboxItem
-                           checked={selectedFilters.category.includes('Loaves')}
+                           checked={selectedFilters.category.includes('loaves')}
                            onCheckedChange={() =>
-                              handleFilterChange('category', 'Loaves')
+                              handleFilterChange('category', 'loaves')
                            }
                         >
                            Loaves
