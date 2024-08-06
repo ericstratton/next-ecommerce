@@ -4,6 +4,8 @@ import { getDocument } from '@/lib/server/db';
 import { getProductDetails } from '@/lib/server/name';
 import ProductForm from '@/components/product/productform';
 import ProductRating from '@/components/product/productrating';
+import { getFilePreview } from '@/lib/server/storage';
+import { convertImageBufferToSrc } from '@/lib/utils';
 
 const getProductData = async (slug: string) => {
    'use server';
@@ -11,8 +13,11 @@ const getProductData = async (slug: string) => {
    if (details === null) {
       return null;
    }
-
    const data = await getDocument(details.collectionId, details.documentId);
+   if (data == null) {
+      return null;
+   }
+
    return data;
 };
 
@@ -23,14 +28,17 @@ export default async function ProductPage({
 }) {
    const product = await getProductData(params.slug);
 
-   if (product == null) {
+   if (product === null) {
       return <div>Product not found</div>;
    }
+
+   const imageBuffer = await getFilePreview(product.images[0], 160);
+   const imageSrc = imageBuffer ? convertImageBufferToSrc(imageBuffer) : '';
 
    return (
       <div className="grid md:grid-cols-2 items-start max-w-3xl px-4 mx-auto py-6 gap-6 md:gap-12">
          <div className="grid gap-3 items-start">
-            <ProductImages />
+            <ProductImages images={product.images} />
          </div>
          <div className="grid gap-3 items-start">
             <div className="grid gap-4 items-start">
@@ -40,9 +48,7 @@ export default async function ProductPage({
                         {product.name}
                      </h1>
                      <div>
-                        <p>
-                           60% combed ringspun cotton/40% polyester jersey tee.
-                        </p>
+                        <p>{product.short}</p>
                      </div>
                      <div className="flex items-center gap-4">
                         <ProductRating rating={4} />
@@ -55,6 +61,7 @@ export default async function ProductPage({
                   price={product.price}
                   id={product.$id}
                   collectionId={product.$collectionId}
+                  imagePreviewSrc={imageSrc}
                />
                <Separator className="border-gray-200 dark:border-gray-800" />
                <div className="grid gap-4 text-base leading-loose">

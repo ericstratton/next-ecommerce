@@ -38,11 +38,13 @@ function ProductForm({
    price,
    id,
    collectionId,
+   imagePreviewSrc,
 }: {
    name: string;
    price: number;
    id: string;
    collectionId: string;
+   imagePreviewSrc: string;
 }) {
    const addToCart = useShoppingCartStore((state) => state.addItem);
    const [selectedPackage, setSelectedPackage] = useState('');
@@ -67,6 +69,7 @@ function ProductForm({
          name,
          price,
          quantity,
+         imagePreviewSrc,
          packageType: selectedPackage,
       });
    };
@@ -150,9 +153,13 @@ function ProductForm({
          {type === 'pastries' && selectedPackage === 'individuals' && (
             <CountInput count={count} onCountChange={setCount} />
          )}
-         {type === 'loaves' && <CountInput count={count} onCountChange={setCount} />}
+         {type === 'loaves' && (
+            <CountInput count={count} onCountChange={setCount} />
+         )}
 
-         <Button type="submit" size="lg">Add to cart</Button>
+         <Button type="submit" size="lg">
+            Add to cart
+         </Button>
       </form>
    );
 }

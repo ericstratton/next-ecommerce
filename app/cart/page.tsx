@@ -14,6 +14,7 @@ import Image from 'next/image';
 import useStore from '@/hooks/usestore';
 import { useShoppingCartStore } from '@/providers/shoppingcartstoreprovider';
 import { ShoppingCartStore } from '@/stores/shoppingcartstore';
+import Link from 'next/link';
 
 export default function CartPage() {
    const cart = useStore(
@@ -46,14 +47,14 @@ export default function CartPage() {
                {Object.entries(cart ?? {}).map(([key, item]) => (
                   <li
                      key={key}
-                     className="grid grid-cols-[80px_1fr_80px] items-center gap-4"
+                     className="grid grid-cols-[160px_1fr_160px] items-center gap-4"
                   >
                      <Image
-                        src="/placeholder.svg"
+                        src={item.imagePreviewSrc}
                         alt={item.name}
-                        width={80}
-                        height={80}
-                        className="rounded-md object-cover"
+                        width={0}
+                        height={0}
+                        className="w-full h-auto rounded-md object-cover"
                      />
                      <div className="grid gap-1">
                         <h3 className="font-medium">{item.name}</h3>
@@ -98,7 +99,9 @@ export default function CartPage() {
                </p>
             </div>
             <div className="flex gap-2">
-               <Button variant="outline">Continue Shopping</Button>
+               <Link href="/products">
+                  <Button variant="outline">Continue Shopping</Button>
+               </Link>
                <Button>Proceed to Checkout</Button>
             </div>
          </CardFooter>

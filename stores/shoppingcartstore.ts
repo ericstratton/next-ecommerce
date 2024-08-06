@@ -1,4 +1,3 @@
-import { create } from 'zustand';
 import { createStore } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -7,6 +6,7 @@ interface CartItem {
    name: string;
    price: number;
    quantity: number;
+   imagePreviewSrc: string;
    packageType?: string;
 }
 

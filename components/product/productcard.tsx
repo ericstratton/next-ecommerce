@@ -64,7 +64,7 @@ function ProductCard({
             </div>
             <div className="grid gap-2 text-sm text-muted-foreground">
                <div className="flex items-center gap-2">
-                  <ProductRating rating={5} />
+                  <ProductRating rating={4} />
                </div>
             </div>
             <div className="flex items-center justify-between">
